@@ -37,4 +37,10 @@ MRuby::Gem::Specification.new('mitamae') do |spec|
   spec.add_dependency 'mruby-etc',       github: 'eagletmt/mruby-etc'
   spec.add_dependency 'mruby-uri',       github: 'zzak/mruby-uri'
   spec.add_dependency 'mruby-schash',    github: 'tatsushid/mruby-schash'
+
+  spec.mruby.cc.defines = %w[MRB_USE_DEBUG_HOOK]
+  spec.add_dependency 'mruby-bin-mruby',    core: 'mruby-bin-mruby'
+  spec.add_dependency 'mruby-bin-mirb',     core: 'mruby-bin-mirb'
+  spec.add_dependency 'mruby-bin-debugger', core: 'mruby-bin-debugger'
+
 end
