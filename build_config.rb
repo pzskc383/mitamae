@@ -52,12 +52,12 @@ if build_targets.include?('linux-i386')
     toolchain :gcc
 
     [conf.cc, conf.linker].each do |cc|
-      cc.command = 'zig cc -target i386-linux-musl'
+      cc.command = 'zig cc -target x86-linux-musl'
     end
     conf.archiver.command = 'zig ar'
 
     # To configure: mrbgems/mruby-yaml, k0kubun/mruby-onig-regexp
-    conf.host_target = 'i386-pc-linux-gnu'
+    conf.host_target = 'x86-pc-linux-gnu'
 
     debug_config(conf)
     gem_config(conf)
@@ -134,6 +134,40 @@ if build_targets.include?('darwin-aarch64')
 
     # To configure: mrbgems/mruby-yaml, k0kubun/mruby-onig-regexp
     conf.host_target = 'aarch64-darwin'
+
+    debug_config(conf)
+    gem_config(conf)
+  end
+end
+
+if build_targets.include?('openbsd-x86_64')
+  MRuby::CrossBuild.new('openbsd-x86_64') do |conf|
+    toolchain :gcc
+
+    [conf.cc, conf.linker].each do |cc|
+      cc.command = 'zig cc -target x86_64-openbsd-none'
+    end
+    conf.archiver.command = 'zig ar'
+    ENV['RANLIB'] ||= 'zig ranlib'
+
+    conf.host_target = 'x86_64-linux'
+
+    debug_config(conf)
+    gem_config(conf)
+  end
+end
+
+if build_targets.include?('openbsd-aarch64')
+  MRuby::CrossBuild.new('openbsd-aarch64') do |conf|
+    toolchain :gcc
+
+    [conf.cc, conf.linker].each do |cc|
+      cc.command = 'zig cc -target aarch64-openbsd-none'
+    end
+    conf.archiver.command = 'zig ar'
+    ENV['RANLIB'] ||= 'zig ranlib'
+
+    conf.host_target = 'aarch64-linux'
 
     debug_config(conf)
     gem_config(conf)
