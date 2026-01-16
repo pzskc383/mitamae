@@ -176,7 +176,9 @@ jobs:
         run: |
           export VERSION=$(echo "$GITHUB_REF" | sed -e 's!refs/tags/!!')
           curl -L "https://github.com/tcnksm/ghr/releases/download/${GHR_VERSION}/ghr_${GHR_VERSION}_linux_amd64.tar.gz" | tar xvz
-          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u itamae-kitchen -r mitamae -replace -n "$VERSION" "$VERSION" mitamae-build/
+          gh_user="${GITHUB_REPOSITORY%/*}"
+          gh_repo="${GITHUB_REPOSITORY#*/}"
+          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u "$gh_user" -r "$gh_repo" -replace -n "$VERSION" "$VERSION" mitamae-build/
         env:
           GHR_VERSION: v0.13.0
-          GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
