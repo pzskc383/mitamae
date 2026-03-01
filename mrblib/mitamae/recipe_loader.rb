@@ -27,11 +27,13 @@ module MItamae
       Node.new({}, backend).tap do |node|
         node_jsons.each do |node_json|
           json = File.read(node_json)
-          node.merge!(JSON.load(json))
+          data = JSON.load(json) || {}
+          node.merge!(data) if data.is_a?(Hash)
         end
         node_yamls.each do |node_yaml|
           yaml = File.read(node_yaml)
-          node.merge!(YAML.load(yaml))
+          data = YAML.load(yaml) || {}
+          node.merge!(data) if data.is_a?(Hash)
         end
       end
     end
