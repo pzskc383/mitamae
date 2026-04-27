@@ -98,6 +98,42 @@ if build_targets.include?('linux-aarch64')
   end
 end
 
+
+if build_targets.include?('linux-s390x')
+  MRuby::CrossBuild.new('linux-s390x') do |conf|
+    toolchain :gcc
+
+    [conf.cc, conf.linker].each do |cc|
+      cc.command = 'zig cc -target s390x-linux-musl'
+    end
+    conf.archiver.command = 'zig ar'
+
+    # To configure: mrbgems/mruby-yaml, k0kubun/mruby-onig-regexp
+    conf.host_target = 's390x-linux-musl'
+
+    debug_config(conf)
+    gem_config(conf)
+  end
+end
+
+
+if build_targets.include?('linux-ppc64le')
+  MRuby::CrossBuild.new('linux-ppc64le') do |conf|
+    toolchain :gcc
+
+    [conf.cc, conf.linker].each do |cc|
+      cc.command = 'zig cc -target powerpc64le-linux-musl'
+    end
+    conf.archiver.command = 'zig ar'
+
+    # To configure: mrbgems/mruby-yaml, k0kubun/mruby-onig-regexp
+    conf.host_target = 'powerpc64le-linux-musl'
+
+    debug_config(conf)
+    gem_config(conf)
+  end
+end
+
 if build_targets.include?('darwin-x86_64')
   MRuby::CrossBuild.new('darwin-x86_64') do |conf|
     toolchain :gcc
@@ -140,6 +176,41 @@ if build_targets.include?('darwin-aarch64')
   end
 end
 
+if build_targets.include?('freebsd-x86_64')
+  MRuby::CrossBuild.new('freebsd-x86_64') do |conf|
+    toolchain :gcc
+
+    [conf.cc, conf.linker].each do |cc|
+      cc.command = 'zig cc -target x86_64-freebsd-none'
+    end
+    conf.archiver.command = 'zig ar'
+    ENV['RANLIB'] ||= 'zig ranlib'
+
+    conf.host_target = 'x86_64-freebsd'
+
+    debug_config(conf)
+    gem_config(conf)
+  end
+end
+
+if build_targets.include?('freebsd-aarch64')
+  MRuby::CrossBuild.new('freebsd-aarch64') do |conf|
+    toolchain :gcc
+
+    [conf.cc, conf.linker].each do |cc|
+      cc.command = 'zig cc -target aarch64-freebsd-none'
+    end
+    conf.archiver.command = 'zig ar'
+    ENV['RANLIB'] ||= 'zig ranlib'
+
+    conf.host_target = 'aarch64-freebsd'
+
+    debug_config(conf)
+    gem_config(conf)
+  end
+end
+
+
 if build_targets.include?('openbsd-x86_64')
   MRuby::CrossBuild.new('openbsd-x86_64') do |conf|
     toolchain :gcc
@@ -150,7 +221,7 @@ if build_targets.include?('openbsd-x86_64')
     conf.archiver.command = 'zig ar'
     ENV['RANLIB'] ||= 'zig ranlib'
 
-    conf.host_target = 'x86_64-linux'
+    conf.host_target = 'x86_64-openbsd-none'
 
     debug_config(conf)
     gem_config(conf)
@@ -167,7 +238,7 @@ if build_targets.include?('openbsd-aarch64')
     conf.archiver.command = 'zig ar'
     ENV['RANLIB'] ||= 'zig ranlib'
 
-    conf.host_target = 'aarch64-linux'
+    conf.host_target = 'aarch64-openbsd-none'
 
     debug_config(conf)
     gem_config(conf)
