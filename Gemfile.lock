@@ -54,5 +54,8 @@ DEPENDENCIES
   rake
   serverspec
 
+RUBY VERSION
+   ruby 3.4.9p82
+
 BUNDLED WITH
-   2.2.3
+   2.6.9
