@@ -48,7 +48,7 @@ CROSS_TARGETS.each do |target|
   task "release:build:#{target}" do
     Dir.chdir(__dir__) do
       # Workaround: Running `rake compile` twice breaks mattn/mruby-onig-regexp
-      FileUtils.rm_rf('mruby/build')
+      # FileUtils.rm_rf('mruby/build')
 
       sh "rake compile BUILD_TARGET=#{target.shellescape}"
 
