@@ -41,6 +41,7 @@ end
 
 def common_config(conf)
   conf.toolchain :gcc
+  conf.gem_clone_dir = "#{MRUBY_ROOT}/build/repos"
 
   # conf.toolchain :clang
   # conf.enable_sanitizer "address,undefined"
