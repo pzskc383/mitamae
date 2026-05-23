@@ -31,7 +31,6 @@ MRuby::Gem::Specification.new('mitamae') do |spec|
   spec.add_dependency 'mruby-shellwords',  mgem: 'mruby-shellwords'
   spec.add_dependency 'mruby-specinfra',   mgem: 'mruby-specinfra'
 
-  spec.add_dependency 'mruby-tempfile',  github: 'k0kubun/mruby-tempfile'
   spec.add_dependency 'mruby-yaml',      github: 'mrbgems/mruby-yaml'
   spec.add_dependency 'mruby-erb',       github: 'k0kubun/mruby-erb'
   spec.add_dependency 'mruby-etc',       github: 'eagletmt/mruby-etc'
@@ -43,4 +42,5 @@ MRuby::Gem::Specification.new('mitamae') do |spec|
   spec.add_dependency 'mruby-bin-mirb',     core: 'mruby-bin-mirb'
   spec.add_dependency 'mruby-bin-debugger', core: 'mruby-bin-debugger'
 
+  spec.add_dependency 'mruby-tempfile',  github: 'pzskc383/mruby-tempfile', branch: 'fixes'
 end
